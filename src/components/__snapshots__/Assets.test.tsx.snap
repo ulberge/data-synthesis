@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Assets component with assetsFiles 1`] = `
+<div>
+  <div
+    class="dragdrop"
+    tabindex="0"
+  >
+    <ul
+      class="thumbnails"
+    >
+      <li
+        class=""
+      >
+        <button>
+          <img
+            alt="image.png"
+          />
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`renders Assets component with no assets 1`] = `
+<div>
+  <div
+    class="dragdrop"
+    tabindex="0"
+  >
+    <p
+      class="center"
+    >
+      Drop assets here
+    </p>
+  </div>
+</div>
+`;

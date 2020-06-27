@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Synthesis component 1`] = `
+<div>
+  <div>
+    <div
+      class="dragdrop"
+      tabindex="0"
+    >
+      <p
+        class="center"
+      >
+        Drop assets here
+      </p>
+    </div>
+  </div>
+</div>
+`;
