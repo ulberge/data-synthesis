@@ -1,11 +1,30 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import cx from 'classnames';
 import { useDropzone } from 'react-dropzone';
+import { connect } from 'react-redux';
+
+import { Asset } from 'MyModels';
+import { RootState } from '../store/root-reducer';
+import { getAssets } from '../store/assets/selectors';
+import { addAssets } from '../store/assets/actions';
+
 import styles from './Assets.module.css';
 
+// function getAssets() {
+//   return [] as
+// }
+
+const mapStateToProps = (state: RootState) => ({
+  assets: getAssets(state.assets) as Asset[],
+});
+const dispatchProps = {
+  addAssets,
+};
+
 interface AssetsProps {
-  assets: File[],
-  setAssets: (assets: File[]) => void,
+  assets: Asset[],
+  // assets: 'unknown',
+  addAssets: (assets: File[]) => void,
   selectedAsset?: File,
   setSelectedAsset: (asset?: File) => void,
 }
@@ -14,7 +33,7 @@ interface AssetsProps {
  * Component that accepts drag and drop files and renders them as selectable thumbnails.
  */
 function Assets(props: Readonly<AssetsProps>) {
-  const { assets, setAssets, selectedAsset, setSelectedAsset } = props;
+  const { assets, addAssets, selectedAsset, setSelectedAsset } = props;
 
   const onDrop = useCallback((files: File[]) => {
     // Filter files to only images
@@ -22,11 +41,11 @@ function Assets(props: Readonly<AssetsProps>) {
     // Select the first new asset
     if (acceptedFiles.length > 0) {
       // Append new files to assets
-      const newAssets = [ ...assets, ...acceptedFiles ];
-      setAssets(newAssets);
+      // const newAssets = [ ...assets, ...acceptedFiles ];
+      addAssets(acceptedFiles);
       setSelectedAsset(acceptedFiles[0]);
     }
-  }, [assets, setAssets]);
+  }, [addAssets, setSelectedAsset]);
 
   const {getRootProps, isDragActive} = useDropzone({onDrop});
 
@@ -45,13 +64,13 @@ function Assets(props: Readonly<AssetsProps>) {
           <p className={styles.center}>{ isDragActive ? 'Drop assets here...' : 'Drop assets here' }</p> :
           (<ul className={styles.thumbnails}>
             {
-              assets.map((asset: File, i: number) => (
+              assets.map((asset: Asset) => (
                 <li
-                  key={asset.name + '_' + i}
-                  className={asset === selectedAsset ? styles.selected : ''}
+                  key={asset.id}
+                  className={asset.file === selectedAsset ? styles.selected : ''}
                 >
-                  <button onClick={() => setSelectedAsset(asset)}>
-                    <img src={URL.createObjectURL(asset)} alt={asset.name} />
+                  <button onClick={() => setSelectedAsset(asset.file)}>
+                    <img src={URL.createObjectURL(asset.file)} alt={asset.file.name} />
                   </button>
                 </li>
               ))
@@ -62,4 +81,8 @@ function Assets(props: Readonly<AssetsProps>) {
   );
 }
 
-export default Assets;
+// export default Assets;
+export default connect(
+  mapStateToProps,
+  dispatchProps
+)(Assets);
