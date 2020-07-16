@@ -1,10 +1,16 @@
 import { combineReducers } from 'redux';
-
 import assetsReducer from './assets/reducers';
 
-const rootReducer = combineReducers({
+import storage from "redux-persist/lib/storage";
+
+export const rootConfig = {
+    key: 'root',
+    storage: storage,
+    whitelist: ['assets']
+};
+
+export const rootReducer = combineReducers({
   assets: assetsReducer,
 });
 
-export default rootReducer;
 export type RootState = ReturnType<typeof rootReducer>

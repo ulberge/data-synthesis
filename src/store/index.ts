@@ -1,7 +1,8 @@
 import { createStore } from 'redux';
-import rootReducer from './root-reducer';
+import { rootConfig, rootReducer } from './root-reducer';
+import {persistReducer} from "redux-persist";
 
-const initialState = {};
-const store = createStore(rootReducer, initialState);
+const persisted = persistReducer(rootConfig, rootReducer);
+const store = createStore(persisted);
 
 export default store;

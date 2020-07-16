@@ -46,3 +46,9 @@
 .dragged {
   border-color: #28a1c5;
 }
+
+.clear {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
