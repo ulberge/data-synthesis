@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Assets from './Assets';
-import { Asset } from 'MyModels';
+import { Asset } from 'Models';
 
 /**
  * Component that renders and manages the UI workflow for data synthesis.

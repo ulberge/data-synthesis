@@ -3,10 +3,8 @@ import cx from 'classnames';
 import { useDropzone } from 'react-dropzone';
 import { connect } from 'react-redux';
 
-import { Asset } from 'MyModels';
-import { RootState } from '../store/root-reducer';
-import { getAssets } from '../store/assets/selectors';
-import { addAssets, removeAssets } from '../store/assets/actions';
+import { Asset } from 'Models';
+import { RootState, getAssets, addAssets, removeAssets } from '../store';
 
 import styles from './Assets.module.css';
 
