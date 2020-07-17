@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitForElement } from '../test-utils';
 import Synthesis from './Synthesis';
 
 test('renders Synthesis component', () => {

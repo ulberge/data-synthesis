@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-import {persistReducer} from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { createReducer, createAction, ActionType } from 'typesafe-actions';
 import cuid from 'cuid';
@@ -21,8 +21,8 @@ const items = createReducer([] as Asset[])
                   return [...state, ...action.payload];
                 })
   .handleAction(removeAssets, (state: Asset[]) => ([]));
-const assetsReducer = combineReducers({
-  items,
+export const assetsReducer = combineReducers({
+  items
 });
 export type AssetsState = ReturnType<typeof assetsReducer>;
 // Selector

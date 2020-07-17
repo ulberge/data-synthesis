@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { Asset } from 'Models';
 import { RootState, getAssets, addAssets, removeAssets } from '../store';
 
+import { getDataURLs } from '../image-utils';
+
 import styles from './Assets.module.css';
 
 const mapStateToProps = (state: RootState) => ({
@@ -18,28 +20,16 @@ const dispatchProps = {
 
 interface AssetsProps {
   assets: Asset[],
-  addAssets: (assets: string[]) => void,
+  addAssets: (dataURLs: string[]) => void,
   removeAssets: () => void,
-  selectedAsset?: Asset,
+  selectedAsset: Asset | undefined,
   setSelectedAsset: (asset?: Asset) => void,
-}
-
-function getDataURL(file: File) {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => resolve(reader.result), false);
-    reader.readAsDataURL(file);
-  });
-}
-
-function getDataURLs(files: File[]) {
-  return Promise.all(files.map(getDataURL));
 }
 
 /**
  * Component that accepts drag and drop files and renders them as selectable thumbnails.
  */
-function Assets(props: Readonly<AssetsProps>) {
+export function Assets(props: Readonly<AssetsProps>) {
   const { assets, addAssets, removeAssets, selectedAsset, setSelectedAsset } = props;
 
   const onDrop = useCallback(async (files: File[]) => {
@@ -92,7 +82,6 @@ function Assets(props: Readonly<AssetsProps>) {
     </div>
   );
 }
-                    // <img src={URL.createObjectURL(asset.file)} alt={asset.file.name} />
 
 export default connect(
   mapStateToProps,
